@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: store
+Strip:
+  apiUrl: http://localhost:3000
+  timeout: 1000
+  enabled: true
+  currencies: USD,EUR,GBP
+payment-gateway: stripe

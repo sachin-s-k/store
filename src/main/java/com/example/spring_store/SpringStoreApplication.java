@@ -2,16 +2,20 @@ package com.example.spring_store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class SpringStoreApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringStoreApplication.class, args);
+  ConfigurableApplicationContext applicationContext= SpringApplication.run(SpringStoreApplication.class, args);
+var orderService =applicationContext.getBean(OrderService.class);
+orderService.placeOrder();
 
-		var orderService=new OrderService();
-		orderService.setPaymentService(new PaypalPaymenService());
-		orderService.placeOrder();
+
+
+applicationContext.close();
 	}
 
 }
