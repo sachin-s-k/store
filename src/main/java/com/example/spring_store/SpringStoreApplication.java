@@ -20,7 +20,7 @@ public class SpringStoreApplication {
 var profile = Profile.builder().bio("fnfw").build();
 		user.setProfile(profile);
 
-		System.out.println(user);
+
 
 	}
 
