@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @ToString
-@Table(name = "tags")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,8 @@ public class User {
     @Column(nullable = false,name = "name")
     private String name;
     @Column(nullable = false,name = "email")
-
     private String email;
-
     @Column(nullable = false,name = "password")
-
     private String password;
 
     @OneToMany(mappedBy = "user")
