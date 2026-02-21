@@ -15,11 +15,7 @@ import java.util.Date;
 public class SpringStoreApplication {
 
 	public static void main(String[] args) {
-       var user= User.builder().name("sachi").email("sachinksiby@gmail.com").password("password").build();
-
-var profile = Profile.builder().bio("fnfw").build();
-		user.setProfile(profile);
-
+ApplicationContext applicationContext=SpringApplication.run(SpringStoreApplication.class);
 
 
 	}

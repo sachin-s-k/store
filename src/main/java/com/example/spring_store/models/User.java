@@ -54,7 +54,12 @@ private List<Address> addresses= new ArrayList<>();
     @OneToOne(mappedBy = "user")
 
     private Profile profile;
-
-
+    @ManyToMany
+    @JoinTable(
+            name = "wishlist",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> wishlist = new HashSet<>();
 
 }
