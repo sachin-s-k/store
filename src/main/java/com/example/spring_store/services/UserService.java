@@ -4,9 +4,13 @@ import com.example.spring_store.dtos.ProductSummary;
 import com.example.spring_store.dtos.ProductSummaryDto;
 import com.example.spring_store.models.*;
 import com.example.spring_store.repositories.*;
+import com.example.spring_store.repositories.specifications.ProductSpec;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -112,11 +116,7 @@ public class UserService {
     productRepository.deleteById(2L);
     }
 
-    @Transactional
-    public void fetchProduct(){
-    var products= productRepository.findProducts(BigDecimal.valueOf(1),BigDecimal.valueOf(35));
-        System.out.println(products+"product=====>");
-    }
+
     @Transactional
     public void fetchUsers(){
     var users =userRepository.findAllWithAddress();
@@ -126,5 +126,48 @@ public class UserService {
 
             });
         });
+    }
+@Transactional
+    public void printLoyalProfile(){
+    var profiles= profileRepository .findLoyalProfiles(2);
+    profiles.forEach(profile -> {
+        System.out.println(profile.getId()+"====>"+profile.getEmail());
+    });
+    }
+@Transactional
+    public void fetchProducts(){
+    var product = new Product();
+     product.setName("Bo");
+   var matcher= ExampleMatcher.matching().withIgnoreNullValues().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+       var example= Example.of(product,matcher);
+       var products=productRepository.findAll(example);
+       products.forEach(productOne-> {
+           System.out.println(productOne+"=====>");
+       });
+    }
+
+    public void fetchProductsBycriteria(){
+        System.out.println("==========>");
+    var products  = productRepository.findProductsCriteria(null,BigDecimal.valueOf(30), BigDecimal.valueOf(35));
+        System.out.println(products+"====<<<<>>>>>>>");
+    }
+
+    public void fetchProductBySpecifications(String name, BigDecimal min, BigDecimal max){
+        Specification<Product> spec= Specification.where(null);
+        if(name!=null){
+            spec=spec.and(ProductSpec.hasName( name));
+        }if(min!=null){
+            spec=spec.and(ProductSpec.hasPriceGreaterThanOrEqualTo(min));
+
+        }
+        if(max!=null){
+            spec=spec.and(ProductSpec.hasPriceLessThanOrEqualTo(max));
+
+        }
+
+        productRepository.findAll(spec).forEach(System.out::println);
+
+
     }
 }

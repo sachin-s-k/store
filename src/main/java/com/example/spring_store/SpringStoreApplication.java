@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @SpringBootApplication
@@ -20,7 +21,7 @@ public class SpringStoreApplication {
 ApplicationContext applicationContext=SpringApplication.run(SpringStoreApplication.class);
 var service=applicationContext.getBean(UserService.class);
 
-//service.fetchProduct();
+service.fetchProductBySpecifications("Book", BigDecimal.valueOf(30),BigDecimal.valueOf(38));
 
 
 	}
