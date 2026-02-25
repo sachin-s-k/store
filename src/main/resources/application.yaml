@@ -5,6 +5,11 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/storenew?createDatabaseIfNotExist=true
     username: root
     password: NewPassword123!
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+      format_sql: true
 
   flyway:
     enabled: true
@@ -15,7 +20,3 @@ Strip:
   enabled: true
   currencies: USD,EUR,GBP
 payment-gateway: stripe
-logging:
-  level:
-    org.flywaydb: DEBUG
-    org.springframework.boot.autoconfigure.flyway: DEBUG

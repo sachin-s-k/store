@@ -27,13 +27,17 @@ public class User {
     @Column(nullable = false,name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
    @Builder.Default
 private List<Address> addresses= new ArrayList<>();
 
     public void addAddress(Address address){
         addresses.add(address);
         address.setUser(this);
+    }
+    public void removeAddress(Address address){
+        addresses.remove(address);
+        address.setUser(null);
     }
     public void addTag(Tag tag) {
         this.tags.add(tag);
@@ -48,9 +52,9 @@ private List<Address> addresses= new ArrayList<>();
      @Builder.Default
      @JoinTable(name = "user_tags", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags= new HashSet<>();
-    @OneToOne(mappedBy = "user")
-
-    private Profile profile;
+//    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+//
+//    private Profile profile;
     @ManyToMany
     @JoinTable(
             name = "wishlist",
@@ -58,5 +62,6 @@ private List<Address> addresses= new ArrayList<>();
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private Set<Product> wishlist = new HashSet<>();
+
 
 }

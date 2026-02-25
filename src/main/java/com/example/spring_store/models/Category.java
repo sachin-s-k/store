@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -22,6 +22,16 @@ public class Category {
     private byte id;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    @Builder.Default
     private Set<Product> products= new HashSet<>();
+
+    public Category(byte id) {
+        this.id=id;
+    }
+
+    public void addProduct(Product product){
+        products.add(product);
+        product.setCategory(this);
+    }
 }

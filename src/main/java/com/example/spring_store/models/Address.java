@@ -23,7 +23,7 @@ public class Address {
     private String city;
     @Column(name = "state",nullable = false)
     private String state;
-    @ManyToOne()
+    @ManyToOne(   fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     @ToString.Exclude
     private User user;

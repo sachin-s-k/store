@@ -19,7 +19,8 @@ public class SpringStoreApplication {
 	public static void main(String[] args) {
 ApplicationContext applicationContext=SpringApplication.run(SpringStoreApplication.class);
 var service=applicationContext.getBean(UserService.class);
-service.showEntity();
+
+//service.fetchProduct();
 
 
 	}
