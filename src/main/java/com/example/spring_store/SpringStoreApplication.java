@@ -21,7 +21,7 @@ public class SpringStoreApplication {
 ApplicationContext applicationContext=SpringApplication.run(SpringStoreApplication.class);
 var service=applicationContext.getBean(UserService.class);
 
-service.fetchProductBySpecifications("Book", BigDecimal.valueOf(30),BigDecimal.valueOf(38));
+service.fetchPaginatedProducts(0,2);
 
 
 	}
